@@ -27,7 +27,6 @@ class HockeyTeamDataManage(FileManage):
             # Print error message and the warning
             print(f"Error occurred while reading data###########\nError : {e}")
 
-
     def save_data(self, team_data):
         """Save data in the hockey_team_data.txt file"""
         # Saving data to a .txt file using JSON
@@ -56,6 +55,15 @@ class HockeyTeamDataManage(FileManage):
         except Exception as e:
             # Print error message and the warning
             print(f"Error occurred while saving data###########\nError : {e}")
+
+    def update_data(self, team_id):
+        """Update data in the file"""
+        pass
+
+    def delete_data(self, team_id):
+        """Delete data in the file"""
+        pass
+
 
 
     def __str__(self):

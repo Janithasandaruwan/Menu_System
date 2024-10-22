@@ -12,3 +12,13 @@ class FileManage(ABC):
     def save_data(self, team_data):
         """Save data in the file"""
         pass
+
+    @abstractmethod
+    def update_data(self, team_id):
+        """Update data in the file"""
+        pass
+
+    @abstractmethod
+    def delete_data(self, team_id):
+        """Delete data in the file"""
+        pass
