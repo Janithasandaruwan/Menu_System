@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class User_Interface(ABC):
+class UserInterface(ABC):
     """Abstract class for row-oriented user interface"""
 
     @abstractmethod
@@ -10,7 +10,7 @@ class User_Interface(ABC):
 
     @abstractmethod
     def get_user_input(self):
-        """Gte user input from the user"""
+        """Get user input from the user"""
         pass
 
     @abstractmethod

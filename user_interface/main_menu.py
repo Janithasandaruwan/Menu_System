@@ -1,7 +1,8 @@
-from user_interface import User_Interface
+from user_interface import UserInterface
 
-class Main_Menu(User_Interface):
+class MainMenu(UserInterface):
     """Concrete implementation of the main menu using User_Interface abstract class"""
+
     # Define the __init__ method
     def __init__(self):
         # Define main menu options in a python dictionary
@@ -20,7 +21,7 @@ class Main_Menu(User_Interface):
         # Check whether user enter a valid option
         try:
             # Get the user input for main menu option
-            choice = int(input("\n Select Your Option:"))
+            choice = int(input("\nSelect Your Option: "))
             # Convert user selected option same way as main_menu_options dict keys
             option = "0" + str(choice)
             # Check whether user enter option is include in main menu options
@@ -31,7 +32,7 @@ class Main_Menu(User_Interface):
                 return None
         # If user entered invalid option, display a warning message
         except ValueError:
-            print("Please Enter Valid Option")
+            print("Please Enter Valid Option!")
             return None
 
     def display_UI(self):
@@ -51,8 +52,14 @@ class Main_Menu(User_Interface):
     def handle_options(self):
         pass
 
+    def __str__(self):
+        """string representation of the Maine_Menu class"""
+        return f"Main Menu Options: {self.main_menu_options}"
+
 
 
 if __name__ == "__main__":
-    main_menu = Main_Menu()
-    main_menu.display_UI()
+    main_menu = MainMenu()
+    #main_menu.display_UI()
+    #main_menu.get_user_input()
+    print(main_menu)

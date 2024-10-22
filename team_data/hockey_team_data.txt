@@ -1,0 +1,9 @@
+{
+    "team": "Hockey Heroes",
+    "players": [
+        "Alice",
+        "Bob",
+        "Charlie"
+    ],
+    "coach": "Coach Carter"
+}
