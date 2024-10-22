@@ -1,4 +1,5 @@
 import json
+import os
 from team_data.file_manage import FileManage
 
 class HockeyTeamDataManage(FileManage):
@@ -31,12 +32,25 @@ class HockeyTeamDataManage(FileManage):
         """Save data in the hockey_team_data.txt file"""
         # Saving data to a .txt file using JSON
         # Handling the errors when encountering the data saving
-        print(team_data)
         try:
-            # Open the .txt file in write mode
-            with open(self.__file_name, "w") as file:
+            # Create the file with an empty list if it doesn't exist
+            if not os.path.exists(self.__file_name):
+                with open(self.__file_name, 'w') as file:
+                    # Initialize with an empty list
+                    json.dump([], file)
+
+            # Open the .txt file in read and write mode
+            with open(self.__file_name, "r+") as file:
+                # Read current data list as JSON
+                current_data = json.load(file)
+                # Append team data to the current data
+                current_data.append(team_data)
+                # Go back to the beginning of the file
+                file.seek(0)
                 # Serialize and save data as JSON (with indentation for readability)
-                json.dump(team_data, file, indent = 4)
+                json.dump(current_data, file, indent=4)
+                # Remove any leftover data
+                file.truncate()
             # Print the successful saved message
             print("Data Successfully Saved!********************")
         except Exception as e:
@@ -52,13 +66,5 @@ class HockeyTeamDataManage(FileManage):
 
 if __name__ == "__main__":
     hockey_team_data = HockeyTeamDataManage()
-    print(hockey_team_data)
-    # Data to be serialized (could be any Python object)
-    data = {
-        "team": "Hockey Heroes",
-        "players": ["Alice", "Bob", "Charlie"],
-        "coach": "Coach Carter"
-    }
-
     print(hockey_team_data.read_data())
 

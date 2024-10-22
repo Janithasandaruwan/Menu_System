@@ -30,6 +30,66 @@ class TeamOperations(TeamManager):
         # Save user input data
         self.file_operation.save_data(hockey_data)
 
+    def get_a_team_by_id(self, team_id):
+        """Get team data by its team ID"""
+        # Read all the team data by using read_data() function
+        team_data  =  self.file_operation.read_data()
+        # Handle errors when user input invalid team ID
+        try:
+            # Filter the team data by the team_id using generator expression
+            filtered_data = (team_data[idx] for idx, data in enumerate(team_data) if data["Team ID"] == team_id)
+            # Return the data in the generator using next() function
+            return next(filtered_data)
+        except Exception as e:
+            return []
+
+    def get_all_teams(self):
+        """Retrieve details of all teams"""
+        # Handle errors when getting all the team data
+        try:
+            # Read all the team data by using read_data() function
+            team_data = self.file_operation.read_data()
+            # Get the total team count
+            total_team_count = len(team_data)
+            # Get the count of fee paid Teams
+            fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Status"] == True])
+            # Get the percentage of fee paid teams
+            percent_fee_paid = (fee_paid_teams / total_team_count) * 100
+            # Return all the team data, team count and percentage of fee paid teams
+            return team_data, total_team_count, percent_fee_paid
+        except Exception as e:
+            return []
+
+    def get_a_team_by_gender(self, gender):
+        """Retrieve details of a specific team by gender (boy/ girl)"""
+        # Read all the team data by using read_data() function
+        team_data = self.file_operation.read_data()
+        # Handle errors when user input invalid gender type
+        try:
+            # Filter the team data by the gender and create a new list for filtered data
+            filtered_data = [team_data[idx] for idx, data in enumerate(team_data) if data["Team Type (Girl/Boy/Mix)"].lower() == gender.lower()]
+            # Return the filtered data list
+            return filtered_data
+        except Exception as e:
+            return []
+
+    def update_team(self, team_id, name=None, team_type=None, number_of_members=None, fee_paid=None):
+        """Update details of a team"""
+        pass
+
+    # def delete_team(self, team_id):
+    #     """Delete a team by its ID"""
+    #     # Read all the team data by using read_data() function
+    #     team_data = self.file_operation.read_data()
+    #     # Handle errors when user input invalid team ID
+    #     try:
+    #         # Filter the team data by the team_id using generator expression
+    #         filtered_data = (team_data[idx] for idx, data in enumerate(team_data) if data["Team ID"] == team_id)
+    #         # Return the data in the generator using next() function
+    #         return next(filtered_data)
+    #     except Exception as e:
+    #         return []
+
 
 
 
