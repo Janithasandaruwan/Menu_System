@@ -1,9 +1,9 @@
 {
-    "team": "Hockey Heroes",
-    "players": [
-        "Alice",
-        "Bob",
-        "Charlie"
-    ],
-    "coach": "Coach Carter"
+    "Team ID": 1,
+    "Date Registered": "2024-10-22 14:57:50",
+    "Team Name": "Test_name",
+    "Team Type (Girl/Boy/Mix)": "Boy",
+    "Total PLayers": 10,
+    "Total Fee": "200 SEK",
+    "Fee Status": true
 }

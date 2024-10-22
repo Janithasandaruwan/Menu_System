@@ -4,9 +4,9 @@ class HockeyTeam:
     """Class for hockey team and its private instance"""
 
     # Define the __init__ method, the class constructor
-    def __init__(self, team_id, team_name, team_type, total_players, total_fee, fee_paid):
+    def __init__(self, team_id : int, team_name : str, team_type : str, total_players : int, total_fee : int, fee_paid : bool):
         self.__team_id = team_id # Team id
-        self.__date_created = datetime.now() # The date that team registered
+        self.__date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # The date that team registered
         self.__team_name = team_name # Team name
         self.__team_type = team_type # Team type
         self.__total_players = total_players # Total number of players
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     team.team_type = "Boys"
     team.total_players = 10
     team.fee_paid = True
-    print(team)
+    print(team.date_created)
 
 
 

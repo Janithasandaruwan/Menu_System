@@ -1,5 +1,5 @@
 import json
-from file_manage import FileManage
+from team_data.file_manage import FileManage
 
 class HockeyTeamDataManage(FileManage):
     """Concrete implementation of the hockey team data manage using FileManage abstract class"""
@@ -7,7 +7,7 @@ class HockeyTeamDataManage(FileManage):
     # Define in the __init__ method
     def __init__(self):
         # File path for store hockey team data
-        self.__file_name = "hockey_team_data.txt"
+        self.__file_name = "team_data/hockey_team_data.txt"
 
     def read_data(self):
         """Read data in the file"""
@@ -31,6 +31,7 @@ class HockeyTeamDataManage(FileManage):
         """Save data in the hockey_team_data.txt file"""
         # Saving data to a .txt file using JSON
         # Handling the errors when encountering the data saving
+        print(team_data)
         try:
             # Open the .txt file in write mode
             with open(self.__file_name, "w") as file:
