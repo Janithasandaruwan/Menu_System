@@ -14,7 +14,7 @@ class FileManage(ABC):
         pass
 
     @abstractmethod
-    def update_data(self, team_id):
+    def update_data(self, team_id, update_data):
         """Update data in the file"""
         pass
 
