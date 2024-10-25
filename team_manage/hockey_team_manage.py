@@ -53,13 +53,13 @@ class TeamOperations(TeamManager):
             # Get the total team count
             total_team_count = len(team_data)
             # Get the count of fee paid Teams
-            fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Status"] == True])
+            fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Status"] == "Paid"])
             # Get the percentage of fee paid teams
             percent_fee_paid = (fee_paid_teams / total_team_count) * 100
             # Return all the team data, team count and percentage of fee paid teams
-            return team_data, total_team_count, f"{round(percent_fee_paid, 2)}%"
+            return team_data, total_team_count, f"{round(percent_fee_paid, 2)} %"
         except Exception as e:
-            return []
+            return [0, 0, 0]
 
     def get_a_team_by_gender(self, gender):
         """Retrieve details of a specific team by gender (boy/ girl)"""

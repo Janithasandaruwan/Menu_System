@@ -30,7 +30,7 @@ class HockeyTeamDataManage(FileManage):
                 # Deserialize the JSON data
                 loaded_data = json.load(file)
             # Print the successful read message
-            print("Data Successfully Retrieved!********************")
+            #print("Data Successfully Retrieved!********************")
             # Sort a list of dictionaries by the 'Team ID' key using lambda function
             sorted_data = sorted(loaded_data, key=lambda id_val:id_val["Team ID"])
             # Return all the loaded and sorted data
