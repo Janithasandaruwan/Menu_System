@@ -22,3 +22,9 @@ class FileManage(ABC):
     def delete_data(self, team_id):
         """Delete data in the file"""
         pass
+
+    @abstractmethod
+    def get_next_team_ID(self):
+        """Read all team IDs in the existing data and return team ID for next new team creation"""
+        pass
+

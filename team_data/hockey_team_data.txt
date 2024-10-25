@@ -1,11 +1,22 @@
 [
     {
-        "Team ID": 1,
-        "Date Registered": "2024-10-24 21:58:18",
-        "Team Name": "Sandaruwan",
-        "Team Type (Girl/Boy/Mix)": "Girl",
-        "Total Players": 40,
-        "Total Fee": "200 SEK",
-        "Fee Status": true
+        "Team ID": 2,
+        "Date Registered": "2024-10-25 14:09:15",
+        "Team Name": "Test_name2",
+        "Team Type": "Boys",
+        "Total Players": 5,
+        "Total Fee": "500 SEK",
+        "Fee Status": true,
+        "Cancellation Date": null
+    },
+    {
+        "Team ID": 4,
+        "Date Registered": "2024-10-25 14:12:13",
+        "Team Name": "Test_name4",
+        "Team Type": "Mix",
+        "Total Players": 13,
+        "Total Fee": "1300 SEK",
+        "Fee Status": true,
+        "Cancellation Date": null
     }
 ]

@@ -13,19 +13,20 @@ class TeamOperations(TeamManager):
         self.file_operation = HockeyTeamDataManage()
 
 
-    def create_team(self, team_id : int, team_name : str, team_type : str, total_players : int, total_fee : int, fee_paid : bool):
+    def create_team(self, team_name : str, team_type : str, total_players : int, fee_paid : bool):
         """Creates a new team and save hockey team data"""
         # Define the team object from HockeyTeam class with user input data
-        team = HockeyTeam(team_id, team_name, team_type, total_players, total_fee, fee_paid)
+        team = HockeyTeam(team_name, team_type, total_players, fee_paid)
         # Create the hockey data dictionary using getter methods of each attributes
         hockey_data = {
             "Team ID" : team.team_id,
             "Date Registered" : team.date_created,
             "Team Name" : team.team_name,
-            "Team Type (Girl/Boy/Mix)" : team.team_type,
+            "Team Type" : team.team_type,
             "Total Players" : team.total_players,
             "Total Fee" : f"{team.total_fee} SEK",
-            "Fee Status" : team.fee_paid
+            "Fee Status" : team.fee_paid,
+            "Cancellation Date" : team.cancelled_date
         }
         # Save user input data
         self.file_operation.save_data(hockey_data)
@@ -56,7 +57,7 @@ class TeamOperations(TeamManager):
             # Get the percentage of fee paid teams
             percent_fee_paid = (fee_paid_teams / total_team_count) * 100
             # Return all the team data, team count and percentage of fee paid teams
-            return team_data, total_team_count, percent_fee_paid
+            return team_data, total_team_count, f"{round(percent_fee_paid, 2)}%"
         except Exception as e:
             return []
 
@@ -67,7 +68,7 @@ class TeamOperations(TeamManager):
         # Handle errors when user input invalid gender type
         try:
             # Filter the team data by the gender and create a new list for filtered data
-            filtered_data = [team_data[idx] for idx, data in enumerate(team_data) if data["Team Type (Girl/Boy/Mix)"].lower() == gender.lower()]
+            filtered_data = [team_data[idx] for idx, data in enumerate(team_data) if data["Team Type"].lower() == gender.lower()]
             # Return the filtered data list
             return filtered_data
         except Exception as e:

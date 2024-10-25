@@ -130,6 +130,18 @@ class HockeyTeamDataManage(FileManage):
             # Print error message and the warning
             print(f"Error occurred while deleting data###########\nError : {e}")
 
+    def get_next_team_ID(self):
+        """Read all team IDs in the existing data and return team ID for next new team creation"""
+        # Call the read_data() function to get all the current data
+        current_data = self.read_data()
+        # Check current data list is not empty and get the last team ID
+        if len(current_data) == 0:
+            # If the data list empty, the next Team ID should be 1
+            return 1
+        else:
+            # Get the last team ID and sum with 1
+            return current_data[-1]["Team ID"] + 1
+
     def __str__(self):
         """String representation of the HockeyTeamDataManage class"""
         return f"Hockey team data file path: {self.__file_name}"
@@ -137,6 +149,6 @@ class HockeyTeamDataManage(FileManage):
 
 if __name__ == "__main__":
     hockey_team_data = HockeyTeamDataManage()
-    print(hockey_team_data.update_data(1, {"Team Name": "Janitha", 'Team Type (Girl/Boy/Mix)': "Mix", "Total PLayers": 40}))
-    print(hockey_team_data.read_data())
+    print(hockey_team_data.update_data(1, {"Team Name": "Janitha", 'Team Type': "Mix", "Total PLayers": 40}))
+    print(hockey_team_data.get_next_team_ID())
 

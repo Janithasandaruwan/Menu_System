@@ -1,17 +1,28 @@
 from datetime import datetime
+from team_data.hockey_team_data import HockeyTeamDataManage
 
 class HockeyTeam:
     """Class for hockey team and its private instance"""
 
     # Define the __init__ method, the class constructor
-    def __init__(self, team_id : int, team_name : str, team_type : str, total_players : int, total_fee : int, fee_paid : bool):
-        self.__team_id = team_id # Team id
+    def __init__(self,
+                 team_name : str,
+                 team_type : str = "Boys",
+                 total_players : int = 0,
+                 fee_paid : bool = False,
+                 cancelled_date: str = None,
+                 ):
+        # Define file_operation object using HockeyTeamDataManage class for get next Team ID
+        self.file_operation = HockeyTeamDataManage()
+        self.__team_id = self.file_operation.get_next_team_ID() # Team id
         self.__date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # The date that team registered
         self.__team_name = team_name # Team name
         self.__team_type = team_type # Team type
         self.__total_players = total_players # Total number of players
-        self.__total_fee = total_fee # Total fee for participate in the event
         self.__fee_paid = fee_paid # Boolean for fee paid or not
+        self.__cancelled_date = cancelled_date # Cancelled date of the team participation
+        # Total fee calculated from the total number of players, and 100 SEK for one player
+        self.__total_fee = 100 * total_players  # Total fee for participate in the event
 
     # Define the getter method for team ID
     @property
@@ -22,6 +33,11 @@ class HockeyTeam:
     @property
     def date_created(self):
         return self.__date_created
+
+    # Define the getter method for total fee
+    @property
+    def total_fee(self):
+        return self.__total_fee
 
     # Define getter and setter method for team name
     @property
@@ -58,18 +74,8 @@ class HockeyTeam:
         if not isinstance(count, int) or count <= 0:
             raise ValueError("Number of players must be a positive integer!")
         self.__total_players = count
-
-    # Define getter and setter method for total fee
-    @property
-    def total_fee(self):
-        return self.__total_fee
-
-    @total_fee.setter
-    def total_fee(self, value):
-        # Check whether fee is non-negative
-        if value < 0:
-            raise ValueError("Fee cannot be negative!")
-        self.__total_fee = value
+        # Change the total fee, when the number of player count change
+        self.__total_fee = 100 * count
 
     # Define getter and setter method for fee status
     @property
@@ -83,24 +89,37 @@ class HockeyTeam:
             raise ValueError("Fee paid status must be a boolean value!")
         self.__fee_paid = value
 
+    # Define getter and setter method for cancellation date
+    @property
+    def cancelled_date(self):
+        return self.__cancelled_date
+
+    @cancelled_date.setter
+    def cancelled_date(self, value):
+        # Check whether cancellation date is string if it is not None
+        if value is not None:
+            if not isinstance(value, str):
+                raise ValueError("Cancellation date must be string value!")
+            else:
+                self.__cancelled_date = value
+
     def __str__(self):
         """The string representation of the class"""
         return (f"Team ID: {self.__team_id}\n"
-                f"Date Created: {self.__date_created.strftime('%Y-%m-%d %H:%M:%S')}\n"
+                f"Date Created: {self.__date_created}\n"
                 f"Team Name: {self.__team_name}\n"
                 f"Team Type: {self.__team_type}\n"
                 f"Total Players: {self.__total_players}\n"
-                f"Total Fee: ${self.__total_fee}\n"
-                f"Fee Paid Status: {self.__fee_paid}\n")
+                f"Total Fee: {self.__total_fee} SEK\n"
+                f"Fee Paid Status: {self.__fee_paid}\n"
+                f"Cancellation Status: {self.__cancelled_date}\n")
 
 
 
 if __name__ == "__main__":
-    team = HockeyTeam("test_id", "test_name", "test_type", 20, 200, "TRUE")
-    team.team_type = "Boys"
-    team.total_players = 10
-    team.fee_paid = True
-    print(team.date_created)
+    team = HockeyTeam("test_id", "test_name", "test_type", 20, False, "2024-12-10")
+    print(team)
+    #print(team.total_fee)
 
 
 
