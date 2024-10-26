@@ -56,10 +56,12 @@ class TeamOperations(TeamManager):
             fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Status"] == "Paid"])
             # Get the percentage of fee paid teams
             percent_fee_paid = (fee_paid_teams / total_team_count) * 100
+            # Get all current team IDs
+            curent_teamID = [data["Team ID"] for data in team_data]
             # Return all the team data, team count and percentage of fee paid teams
-            return team_data, total_team_count, f"{round(percent_fee_paid, 2)} %"
+            return team_data, total_team_count, f"{round(percent_fee_paid, 2)} %", curent_teamID
         except Exception as e:
-            return [0, 0, 0]
+            return (0, 0, 0, 0)
 
     def get_a_team_by_gender(self, gender):
         """Retrieve details of a specific team by gender (boy/ girl)"""
@@ -74,17 +76,16 @@ class TeamOperations(TeamManager):
         except Exception as e:
             return []
 
-    def update_team(self, team_id, name=None, team_type=None, number_of_members=None, fee_paid=None):
+    def update_team(self, team_id, team_name, team_type, total_players, total_fee, fee_status, cancellation_date):
         """Update details of a team"""
-        # Get existing team data
-        team_data = self.get_a_team_by_id(team_id)
         # Create new updated data dictionary while checking None values
         update_data = {
-            'Team Name' : name if name is not None else team_data["Team Name"],
-            'Team Type (Girl/Boy/Mix)' : team_type if team_type is not None else team_data["Team Type (Girl/Boy/Mix)"],
-            'Total Players' : number_of_members if number_of_members is not None else team_data['Total Players'],
-            #'Total Fee' : number_of_members if number_of_members is not None else team_data['Total Fee'],
-            'Fee Status' : fee_paid if fee_paid is not None else team_data['Fee Status']
+            'Team Name' : team_name,
+            'Team Type' : team_type,
+            'Total Players' : total_players,
+            'Total Fee' : total_fee,
+            'Fee Status' : fee_status,
+            'Cancellation Date' : cancellation_date
         }
         # Update a team by Team ID using delete_data() function
         self.file_operation.update_data(team_id, update_data)

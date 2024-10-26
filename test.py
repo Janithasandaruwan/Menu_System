@@ -1,1 +1,1 @@
-print(type(10))
+print(type(int(-1)))

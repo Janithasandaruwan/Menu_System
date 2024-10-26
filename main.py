@@ -1,7 +1,7 @@
 import os
 from user_interface.main_menu_ui import MainMenuUI
 from user_interface.create_teams_ui import CreateTeamsUI
-
+from user_interface.update_teams_ui import UpdateTeamsUI
 
 # Function for clear the screen based on the operating system
 def clear_terminal():
@@ -24,6 +24,12 @@ def main():
         clear_terminal()
         create_team_ui = CreateTeamsUI()
         create_team_ui.handle_options()
+
+    # If user select the update team option
+    if int(menu_choice) == 5:
+        clear_terminal()
+        update_team_ui = UpdateTeamsUI()
+        update_team_ui.handle_options()
 
 if __name__ == "__main__":
     #team_opeartion = TeamOperations()

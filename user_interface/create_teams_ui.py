@@ -14,6 +14,8 @@ class CreateTeamsUI(UserInterface):
             "d) Total Fee: ",
             "e) Fee Paid: \n Enter 1: True, 2: False\n"
         ]
+        # Create a team_opeartion object using TeamOperations class
+        self.team_opeartion = TeamOperations()
 
     def get_user_input(self):
         """Get the user's data for create a new team"""
@@ -24,10 +26,10 @@ class CreateTeamsUI(UserInterface):
             team_name = input("Enter Your Data Here: ")
             # Team name should be not empty
             if team_name == "":
-                 print("Team Name Cannot be Empty!!!!!")
+                 print("Team Name Cannot be Empty!!!!!\n")
             # Team name should be not a number
             elif team_name.isdigit():
-                print("Team Name Cannot be a Number!!!!!")
+                print("Team Name Cannot be a Number!!!!!\n")
             else:
                 break
 
@@ -39,10 +41,10 @@ class CreateTeamsUI(UserInterface):
             team_type = input("Enter Your Choice Here: ")
             # Team type should be int and it should be 1, 2, 3
             if not team_type.isdigit() or team_type not in ["1", "2", "3"]:
-                print("Please Select A Valid Choice!!!!!")
+                print("Please Select A Valid Choice!!!!!\n")
             else:
                 # Get the correct team type according to the user input choice
-                team_type = next(types for idx, types in enumerate(["Boys", "Girls", "Mix"]) if idx == int(team_type))
+                team_type = next(types for idx, types in enumerate(["Boys", "Girls", "Mix"]) if idx + 1 == int(team_type))
                 break
 
         # Infinite while loop to get the correct total number of players
@@ -53,9 +55,9 @@ class CreateTeamsUI(UserInterface):
             number_of_players = input("Enter Your Data Here: ")
             # Total number of players should be int and greater than zero
             if not number_of_players.isdigit():
-                print("Player Count Should be Positive Number!!!!!")
+                print("Player Count Should be Positive Number!!!!!\n")
             elif int(number_of_players) <= 0:
-                print("Player Count Should be Positive Number!!!!!")
+                print("Player Count Should be Positive Number!!!!!\n")
             else:
                 # Convert number of players in to integer value
                 number_of_players = int(number_of_players)
@@ -73,7 +75,7 @@ class CreateTeamsUI(UserInterface):
             fee_status = input("Enter Your Choice Here: ")
             # Fee status should be a number and it should be 1, 2
             if not fee_status.isdigit() or fee_status not in ["1", "2"]:
-                print("Please Select A Valid Choice!!!!!")
+                print("Please Select A Valid Choice!!!!!\n")
             else:
                 # Get the correct fee status according to the user input choice
                 fee_status = "Paid" if int(fee_status) == 1 else "Not-Paid"
@@ -93,8 +95,8 @@ class CreateTeamsUI(UserInterface):
         # Display the create team UI
         self.display_UI()
         user_input = self.get_user_input()
-        team_opeartion = TeamOperations()
-        team_opeartion.create_team(team_name = user_input[0],
+        # Call the create_team() method to save the data
+        self.team_opeartion.create_team(team_name = user_input[0],
                                    team_type = user_input[1],
                                    total_players = user_input[2],
                                    fee_paid = user_input[3],

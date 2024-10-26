@@ -92,7 +92,7 @@ class HockeyTeamDataManage(FileManage):
                     # Remove any leftover data
                     file.truncate()
                     # Print the successful updated message
-                    print(f"Team ID: {team_id} successfully updated!********************")
+                    print(f"Team ID: {team_id} Successfully Updated!********************")
                 else:
                     # If Team ID is not exist in the current data, show the warning messages
                     print(f"Team ID: {team_id} not found!######################")
