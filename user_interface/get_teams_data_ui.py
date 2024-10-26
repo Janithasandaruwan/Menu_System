@@ -1,7 +1,7 @@
 from team_manage.hockey_team_manage import TeamOperations
-#from user_interface.user_interface import UserInterface
+from user_interface.user_interface import UserInterface
 
-class GetTeamsDataUI:
+class GetTeamsDataUI(UserInterface):
     """Concrete implementation of the get teams data UI using User_Interface abstract class"""
 
     # Define the __init__ method

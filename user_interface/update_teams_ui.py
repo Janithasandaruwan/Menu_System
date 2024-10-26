@@ -1,9 +1,9 @@
 from datetime import datetime
 from team_manage.hockey_team_manage import TeamOperations
-#from user_interface.user_interface import UserInterface
+from user_interface.user_interface import UserInterface
 
 
-class UpdateTeamsUI:
+class UpdateTeamsUI(UserInterface):
     """Concrete implementation of the update teams UI using User_Interface abstract class"""
 
     # Define the __init__ method

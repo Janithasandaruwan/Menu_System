@@ -3,6 +3,7 @@ from user_interface.main_menu_ui import MainMenuUI
 from user_interface.create_teams_ui import CreateTeamsUI
 from user_interface.update_teams_ui import UpdateTeamsUI
 from user_interface.get_teams_data_ui import GetTeamsDataUI
+from  user_interface.delete_teams_ui import DeleteTeamsUI
 
 # Function for clear the screen based on the operating system
 def clear_terminal():
@@ -48,6 +49,12 @@ def main():
         clear_terminal()
         update_team_ui = UpdateTeamsUI()
         update_team_ui.handle_options()
+
+    # If user select the delete team option
+    if int(menu_choice) == 6:
+        clear_terminal()
+        delete_team_ui = DeleteTeamsUI()
+        delete_team_ui.handle_options()
 
     # If user select the option for check cancelled participation teams
     if int(menu_choice) == 7:
