@@ -2,6 +2,7 @@ import os
 from user_interface.main_menu_ui import MainMenuUI
 from user_interface.create_teams_ui import CreateTeamsUI
 from user_interface.update_teams_ui import UpdateTeamsUI
+from user_interface.get_teams_data_ui import GetTeamsDataUI
 
 # Function for clear the screen based on the operating system
 def clear_terminal():
@@ -12,7 +13,6 @@ def clear_terminal():
     # For macOS and Linux
     else:
         os.system('clear')
-
 
 def main():
     # Display the main menu
@@ -25,11 +25,36 @@ def main():
         create_team_ui = CreateTeamsUI()
         create_team_ui.handle_options()
 
+    # If user select the option for search a team by ID
+    if int(menu_choice) == 2:
+        clear_terminal()
+        get_team_data_ui = GetTeamsDataUI(query = "ID")
+        get_team_data_ui.handle_options()
+
+    # If user select the option for search all teams
+    if int(menu_choice) == 3:
+        clear_terminal()
+        get_team_data_ui = GetTeamsDataUI(query="All")
+        get_team_data_ui.handle_options()
+
+    # If user select the option for search a team by Gender
+    if int(menu_choice) == 4:
+        clear_terminal()
+        get_team_data_ui = GetTeamsDataUI(query="Gender")
+        get_team_data_ui.handle_options()
+
     # If user select the update team option
     if int(menu_choice) == 5:
         clear_terminal()
         update_team_ui = UpdateTeamsUI()
         update_team_ui.handle_options()
+
+    # If user select the option for check cancelled participation teams
+    if int(menu_choice) == 7:
+        clear_terminal()
+        get_team_data_ui = GetTeamsDataUI(query="Cancellation")
+        get_team_data_ui.handle_options()
+
 
 if __name__ == "__main__":
     #team_opeartion = TeamOperations()
