@@ -46,9 +46,10 @@ class HockeyTeam:
     @team_name.setter
     def team_name(self, name):
         # Check whether team name is empty
+        print(name)
         if not name.strip():
             raise ValueError("Team name cannot be empty!")
-        return self.__team_name
+        self.__team_name = name
 
     # Define getter and setter method for team type
     @property

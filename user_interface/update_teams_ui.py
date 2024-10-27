@@ -7,7 +7,7 @@ class UpdateTeamsUI(UserInterface):
     """Concrete implementation of the update teams UI using User_Interface abstract class"""
 
     # Define the __init__ method
-    def __init__(self):
+    def __init__(self, team_objects):
         # Define update teams steps as a python list
         self.update_team_steps = [
             "a) Enter the New Team Name: \n",
@@ -19,12 +19,15 @@ class UpdateTeamsUI(UserInterface):
         ]
 
         # Get the current data of the existing team
-        self.team_opeartion = TeamOperations()
+        self.team_operation = TeamOperations(team_objects)
 
     def get_user_input(self):
         """Get the user's data for update a new team"""
         # Infinite while loop to update the correct team ID
         while True:
+            # Current all team IDs
+            current_team_IDs = self.team_operation.get_all_teams()[3]
+            print(f"***Current Team ID List : {current_team_IDs}")
             # Get the team ID from the user
             team_id = input("Enter the team ID that you need to update : ")
 
@@ -33,14 +36,11 @@ class UpdateTeamsUI(UserInterface):
                 print("Please Enter the Valid Team ID!!!!!")
             else:
                 # Check whether team ID existing in the current data
-                # Current all team IDs
-                current_team_IDs = self.team_opeartion.get_all_teams()[3]
                 if int(team_id) not in current_team_IDs:
                     print("Team ID Not Found!!!!!")
-                    print(f"***Current Team ID List : {current_team_IDs}")
                 else:
                     # Get the current team data
-                    current_team_data = self.team_opeartion.get_a_team_by_id(int(team_id))
+                    current_team_data = self.team_operation.get_a_team_by_id(int(team_id))
                     break
 
         # Infinite while loop to update the correct team name
@@ -116,7 +116,7 @@ class UpdateTeamsUI(UserInterface):
 
         # Display the total fee based on the team count
         print("\n")
-        total_fee = 100 * total_players
+        total_fee = 100 * int(total_players)
         print(f"{self.update_team_steps[3]}{total_fee} SEK")
 
         # Infinite while loop to update the correct fee paid status
@@ -124,7 +124,7 @@ class UpdateTeamsUI(UserInterface):
             # Display the current paid status
             print("\n")
             print(self.update_team_steps[4])
-            print(f"***Current Fee Paid Status : {current_team_data["Fee Status"]}")
+            print(f"***Current Fee Paid Status : {current_team_data["Fee Paid Status"]}")
             print("If You Dont Need To Change, Please Press Enter.......")
             fee_status = input("Enter Your Choice Here: ")
 
@@ -135,11 +135,11 @@ class UpdateTeamsUI(UserInterface):
                     print("Please Select A Valid Choice!!!!!")
                 else:
                     # Get the correct fee status according to the user input choice
-                    fee_status = "Paid" if int(fee_status) == 1 else "Not-Paid"
+                    fee_status = True if int(fee_status) == 1 else False
                     break
             else:
                 # If user not update the filed, keep the previous values
-                fee_status = current_team_data["Fee Status"]
+                fee_status = current_team_data["Fee Paid Status"]
                 break
 
         # Infinite while loop to update the Cancellation date
@@ -149,7 +149,7 @@ class UpdateTeamsUI(UserInterface):
             print(self.update_team_steps[5])
             # Current cancellation date
             current_date = current_team_data["Cancellation Date"]
-            print(f"***Current Cancellation Date : {"No" if current_date == None else current_date}")
+            print(f"***Current Cancellation Date : {"No-Date" if current_date == "None" else current_date}")
             print("If You Dont Need To Change, Please Press Enter.......")
 
             cancellation_date = input("Enter Your Choice Here: ")
@@ -169,7 +169,7 @@ class UpdateTeamsUI(UserInterface):
                 break
 
         # Return all the user input data
-        return [int(team_id), team_name, team_type, total_players, total_fee, fee_status, cancellation_date]
+        return [int(team_id), team_name, team_type, int(total_players), total_fee, bool(fee_status), cancellation_date]
 
     def display_UI(self):
         """Display the update teams UI with borders and vertical lines."""
@@ -185,11 +185,10 @@ class UpdateTeamsUI(UserInterface):
         # Print New Line
         print("\n")
         # Call the update_team() method to update data
-        self.team_opeartion.update_team(team_id = user_input[0],
+        self.team_operation.update_team(team_id = user_input[0],
                                         team_name = user_input[1],
                                         team_type = user_input[2],
                                         total_players = user_input[3],
-                                        total_fee = user_input[4],
                                         fee_status = user_input[5],
                                         cancellation_date = user_input[6])
 

@@ -78,7 +78,7 @@ class CreateTeamsUI(UserInterface):
                 print("Please Select A Valid Choice!!!!!\n")
             else:
                 # Get the correct fee status according to the user input choice
-                fee_status = "Paid" if int(fee_status) == 1 else "Not-Paid"
+                fee_status = True if int(fee_status) == 1 else False
                 break
 
         # Return all the user input data

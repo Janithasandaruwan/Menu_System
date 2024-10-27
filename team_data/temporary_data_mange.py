@@ -49,36 +49,18 @@ class TemporaryTeamDataManage:
             print(f"Error occurred while reading data###########\nError : {e}")
 
     def update_data(self, team_id, update_data):
-        """Update data in the file"""
+        """Update data in the team data objects"""
         # Handling the errors when encountering the data updating
         try:
-            # Call the create the file function if path doesn't exist the data txt file
-            self.create_data_file()
-
-            # Open the .txt file in read and write mode
-            with open(self.__file_name, "r+") as file:
-                # Read current data list as JSON
-                current_data = json.load(file)
-                # Check whether Team ID is exist in current data list using any function
-                if any(item["Team ID"] ==  team_id for item in current_data):
-                    # Loop through the current data and update with updated data
-                    for team_data in current_data:
-                        # Find the item that need to be updated
-                        if team_data['Team ID'] == team_id:
-                            # Update the data with new data and break the loop
-                            team_data.update(update_data)
-                            break
-                    # Go back to the beginning of the file
-                    file.seek(0)
-                    # Serialize and save data as JSON (with indentation for readability)
-                    json.dump(current_data, file, indent=4)
-                    # Remove any leftover data
-                    file.truncate()
-                    # Print the successful updated message
-                    print(f"Team ID: {team_id} Successfully Updated!********************")
-                else:
-                    # If Team ID is not exist in the current data, show the warning messages
-                    print(f"Team ID: {team_id} not found!######################")
+            # Get the team object that need to update
+            team_obj = next(obj for obj in self.team_objects if obj.team_id == team_id)
+            # Update the team data using setter methods of the team object
+            team_obj.team_name = update_data["Team Name"]
+            team_obj.team_type = update_data["Team Type"]
+            team_obj.total_players = update_data["Total Players"]
+            team_obj.fee_paid = update_data["Fee Paid Status"]
+            team_obj.cancelled_date = update_data["Cancellation Date"]
+            print(f"Team ID: {team_id} Successfully Updated!********************")
         except Exception as e:
             # Print error message and the warning
             print(f"Error occurred while updating data###########\nError : {e}")

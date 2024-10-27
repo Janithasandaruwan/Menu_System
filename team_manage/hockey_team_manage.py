@@ -44,7 +44,7 @@ class TeamOperations(TeamManager):
             # Get the total team count
             total_team_count = len(team_data)
             # Get the count of fee paid Teams
-            fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Paid Status"] == "Paid"])
+            fee_paid_teams = len([data for idx, data in enumerate(team_data) if data["Fee Paid Status"] == "True"])
             # Get the percentage of fee paid teams
             percent_fee_paid = (fee_paid_teams / total_team_count) * 100
             # Get all current team IDs
@@ -68,19 +68,18 @@ class TeamOperations(TeamManager):
         except Exception as e:
             return []
 
-    def update_team(self, team_id, team_name, team_type, total_players, total_fee, fee_status, cancellation_date):
+    def update_team(self, team_id, team_name, team_type, total_players, fee_status, cancellation_date):
         """Update details of a team"""
-        # Create new updated data dictionary while checking None values
-        update_data = {
-            'Team Name' : team_name,
-            'Team Type' : team_type,
-            'Total Players' : total_players,
-            'Total Fee' : total_fee,
-            'Fee Status' : fee_status,
-            'Cancellation Date' : cancellation_date
+        # Create new updated data dictionary
+        updated_data_dict = {
+            "Team Name": team_name,
+            "Team Type": team_type,
+            "Total Players": total_players,
+            "Fee Paid Status": fee_status,
+            "Cancellation Date": cancellation_date,
         }
-        # Update a team by Team ID using delete_data() function
-        self.data_operation.update_data(team_id, update_data)
+        # Update a team by Team ID using update_data() function
+        self.data_operation.update_data(team_id, updated_data_dict)
 
     def delete_team(self, team_id):
         """Delete a team by its ID"""

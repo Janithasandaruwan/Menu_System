@@ -48,15 +48,17 @@ class MenuSystem:
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 
-        # # If user select the update team option
-        # if int(menu_choice) == 5:
-        #     # Clear the current terminal screen
-        #     main_menu.clear_terminal()
-        #     update_team_ui = UpdateTeamsUI()
-        #     update_team_ui.handle_options()
-        #     # Return back to main menu
-        #     main_menu.back_to_main_menu()
-        #
+        # If user select the update team option
+        if int(self.menu_choice) == 5:
+            # Clear the current terminal screen
+            self.main_menu.clear_terminal()
+            # Create update_team_ui object using UpdateTeamsUI class
+            self.update_team_ui = UpdateTeamsUI(self.team_object_list)
+            # Call the handle_options() function
+            self.update_team_ui.handle_options()
+            # Return back to main menu
+            self.main_menu.back_to_main_menu()
+
         # # If user select the delete team option
         # if int(menu_choice) == 6:
         #     # Clear the current terminal screen
@@ -65,21 +67,12 @@ class MenuSystem:
         #     delete_team_ui.handle_options()
         #     # Return back to main menu
         #     main_menu.back_to_main_menu()
-        #
-        # # If user select the option for check cancelled participation teams
-        # if int(menu_choice) == 7:
-        #     # Clear the current terminal screen
-        #     main_menu.clear_terminal()
-        #     get_team_data_ui = GetTeamsDataUI(query="Cancellation")
-        #     get_team_data_ui.handle_options()
-        #     # Return back to main menu
-        #     main_menu.back_to_main_menu()
-        #
-        # # If user select the option for exit the programme
-        # if int(menu_choice) == 10:
-        #     main_menu.clear_terminal()
-        #     # Exit the running programme
-        #     sys.exit(0)
+
+        # If user select the option for exit the programme
+        if int(self.menu_choice) == 10:
+            self.main_menu.clear_terminal()
+            # Exit the running programme
+            sys.exit(0)
 
 
 

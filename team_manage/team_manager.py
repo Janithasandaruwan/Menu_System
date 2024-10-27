@@ -24,7 +24,7 @@ class TeamManager(ABC):
         pass
 
     @abstractmethod
-    def update_team(self, team_id, name=None, team_type=None, number_of_members=None, fee_paid=None):
+    def update_team(self, team_id, team_name, team_type, total_players, fee_status, cancellation_date):
         """Update details of a team"""
         pass
 

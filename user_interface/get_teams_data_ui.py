@@ -22,7 +22,7 @@ class GetTeamsDataUI(UserInterface):
             print(f"** Team Type (Girls/ Boys/ Mix) : {data["Team Type"]}")
             print(f"** Total Players : {data["Total Players"]}")
             print(f"** Total Fee : {data["Total Fee"]} SEK")
-            print(f"** Fee Paid Status : {data["Fee Paid Status"]}")
+            print(f"** Fee Paid Status : {"Paid" if data["Fee Paid Status"] == "True" else "Not-Paid"}")
             print(f"** Cancellation Date : {data["Cancellation Date"]}")
             print("=" + "=" * 40 + "=")
 
@@ -103,7 +103,7 @@ class GetTeamsDataUI(UserInterface):
             # Call the get_all_teams() method to read all team data
             all_team_data = self.team_operation.get_all_teams()[0]
             # Filter the participation cancelled teams
-            cancelled_teams = [team for team in all_team_data if team["Cancellation Date"] is None]
+            cancelled_teams = [team for team in all_team_data if team["Cancellation Date"] != "None"]
             # Check whether data is not empty
             if len(cancelled_teams) > 0:
                 """Display the one team data UI with borders and vertical lines."""
