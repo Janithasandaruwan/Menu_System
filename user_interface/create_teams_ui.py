@@ -92,7 +92,7 @@ class CreateTeamsUI(UserInterface):
 
 
     def handle_options(self):
-        # Display the create team UI
+        # Display the creation team UI
         self.display_UI()
         user_input = self.get_user_input()
         # Call the create_team() method to save the data

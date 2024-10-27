@@ -61,7 +61,8 @@ class TeamOperations(TeamManager):
             # Return all the team data, team count and percentage of fee paid teams
             return team_data, total_team_count, f"{round(percent_fee_paid, 2)} %", curent_teamID
         except Exception as e:
-            return (0, 0, 0, 0)
+            # Return empty data when no records in the data.txt file
+            return ([], 0, 0, [])
 
     def get_a_team_by_gender(self, gender):
         """Retrieve details of a specific team by gender (boy/ girl)"""
