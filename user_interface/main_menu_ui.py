@@ -7,7 +7,7 @@ class MainMenuUI(UserInterface):
     """Concrete implementation of the main menu using User_Interface abstract class"""
 
     # Define the __init__ method
-    def __init__(self):
+    def __init__(self, team_objects):
         # Define main menu options in a python dictionary
         self.main_menu_options = {
             "01" : "Create a New Team",
@@ -17,11 +17,13 @@ class MainMenuUI(UserInterface):
             "05" : "Update a Team",
             "06" : "Delete a Team",
             "07" : "Teams Cancellation Details",
-            "08" : "Exit Program"
+            "08" : "Save All Data To Txt File",
+            "09" : "Restore Data From Txt File",
+            "10" : "Exit Program"
         }
 
         # Get all current team data using TeamOperations class
-        all_team_data = TeamOperations()
+        all_team_data = TeamOperations(team_objects)
         data_tuple = all_team_data.get_all_teams()
         # Get total number of teams registered
         self.total_teams = data_tuple[1]
@@ -36,8 +38,12 @@ class MainMenuUI(UserInterface):
             try:
                 # Get the user input for main menu option
                 choice = int(input("\nSelect Your Option From Above Menu: "))
-                # Convert user selected option same way as main_menu_options dict keys
-                option = "0" + str(choice)
+                # If option number is less than 9
+                if choice < 9:
+                    # Convert user selected option same way as main_menu_options dict keys
+                    option = "0" + str(choice)
+                else:
+                    option = str(choice)
                 # Check whether user enter option is include in main menu options
                 if option in self.main_menu_options.keys():
                     return choice

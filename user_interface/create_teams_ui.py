@@ -5,7 +5,7 @@ class CreateTeamsUI(UserInterface):
     """Concrete implementation of the creation teams UI using User_Interface abstract class"""
 
     # Define the __init__ method
-    def __init__(self):
+    def __init__(self, team_objects):
         # Define create teams steps as a python list
         self.create_team_steps = [
             "a) Enter Your Team Name: \n",
@@ -14,8 +14,8 @@ class CreateTeamsUI(UserInterface):
             "d) Total Fee: ",
             "e) Fee Paid: \n Enter 1: True, 2: False\n"
         ]
-        # Create a team_opeartion object using TeamOperations class
-        self.team_opeartion = TeamOperations()
+        # Create a team_operation object using TeamOperations class
+        self.team_operation = TeamOperations(team_objects)
 
     def get_user_input(self):
         """Get the user's data for create a new team"""
@@ -92,15 +92,18 @@ class CreateTeamsUI(UserInterface):
 
 
     def handle_options(self):
+        """Handle the option selected by the user"""
         # Display the creation team UI
         self.display_UI()
         user_input = self.get_user_input()
         # Call the create_team() method to save the data
-        self.team_opeartion.create_team(team_name = user_input[0],
+        team_object = self.team_operation.create_team(team_name = user_input[0],
                                    team_type = user_input[1],
                                    total_players = user_input[2],
-                                   fee_paid = user_input[3],
-                                   )
+                                   fee_paid = user_input[3])
+        print("\n")
+        print("Data Successfully Saved!!!!!")
+        return team_object
 
 
     def __str__(self):

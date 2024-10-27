@@ -1,20 +1,19 @@
 from datetime import datetime
-from team_data.hockey_team_data import HockeyTeamDataManage
+from team_data.file_data_manage import HockeyTeamDataManage
 
 class HockeyTeam:
     """Class for hockey team and its private instance"""
 
     # Define the __init__ method, the class constructor
     def __init__(self,
+                 team_ID : int,
                  team_name : str,
                  team_type : str = "Boys",
                  total_players : int = 0,
                  fee_paid : bool = False,
                  cancelled_date: str = None,
                  ):
-        # Define file_operation object using HockeyTeamDataManage class for get next Team ID
-        self.file_operation = HockeyTeamDataManage()
-        self.__team_id = self.file_operation.get_next_team_ID() # Team id
+        self.__team_id = team_ID # Team id
         self.__date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # The date that team registered
         self.__team_name = team_name # Team name
         self.__team_type = team_type # Team type

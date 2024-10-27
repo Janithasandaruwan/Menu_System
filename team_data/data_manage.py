@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class FileManage(ABC):
+class DataManage(ABC):
     """Abstract class for file manage, store data and retrieve data"""
 
     @abstractmethod
