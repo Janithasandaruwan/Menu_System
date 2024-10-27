@@ -84,7 +84,9 @@ class TeamOperations(TeamManager):
     def delete_team(self, team_id):
         """Delete a team by its ID"""
         # Delete a team by Team ID using delete_data() function
-        self.data_operation.delete_data(team_id)
+        team_index = self.data_operation.delete_data(team_id)
+        # Return the team index
+        return team_index
 
 
 

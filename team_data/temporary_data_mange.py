@@ -69,28 +69,12 @@ class TemporaryTeamDataManage:
         """Delete data in the file"""
         # Handling the errors when encountering the data removing
         try:
-            # Call the create the file function if path doesn't exist the data txt file
-            self.create_data_file()
-
-            # Open the .txt file in read and write mode
-            with open(self.__file_name, "r+") as file:
-                # Read current data list as JSON
-                current_data = json.load(file)
-                # Check whether Team ID is exist in current data list using any function
-                if any(item["Team ID"] ==  team_id for item in current_data):
-                    # Recreate the new data list without deleted item
-                    new_data_list = [item for item in current_data if item['Team ID'] != team_id]
-                    # Go back to the beginning of the file
-                    file.seek(0)
-                    # Serialize and save data as JSON (with indentation for readability)
-                    json.dump(new_data_list, file, indent=4)
-                    # Remove any leftover data
-                    file.truncate()
-                    # Print the successful saved message
-                    print(f"Team ID: {team_id} Successfully Deleted!********************")
-                else:
-                    # If Team ID is not exist in the current data, show the warning messages
-                    print(f"Team ID: {team_id} not found!######################")
+            # Get the index of the team object that need to delete
+            team_obj_index = next(idx for idx, obj in enumerate(self.team_objects) if obj.team_id == team_id)
+            # Print the successful deleted message
+            print(f"Team ID: {team_id} Successfully Deleted!********************")
+            # Return the team object index
+            return team_obj_index
         except Exception as e:
             # Print error message and the warning
             print(f"Error occurred while deleting data###########\nError : {e}")

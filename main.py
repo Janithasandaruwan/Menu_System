@@ -59,14 +59,19 @@ class MenuSystem:
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 
-        # # If user select the delete team option
-        # if int(menu_choice) == 6:
-        #     # Clear the current terminal screen
-        #     main_menu.clear_terminal()
-        #     delete_team_ui = DeleteTeamsUI()
-        #     delete_team_ui.handle_options()
-        #     # Return back to main menu
-        #     main_menu.back_to_main_menu()
+        # If user select the delete team option
+        if int(self.menu_choice) == 6:
+            # Clear the current terminal screen
+            self.main_menu.clear_terminal()
+            # Create delete_team_ui object using DeleteTeamsUI class
+            self.delete_team_ui = DeleteTeamsUI(self.team_object_list)
+            # Call the handle_options() function
+            team_index = self.delete_team_ui.handle_options()
+            # Delete team object from the team_object_list list
+            if team_index is not None:
+                self.team_object_list.pop(team_index)
+            # Return back to main menu
+            self.main_menu.back_to_main_menu()
 
         # If user select the option for exit the programme
         if int(self.menu_choice) == 10:

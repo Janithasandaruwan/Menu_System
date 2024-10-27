@@ -6,14 +6,18 @@ class DeleteTeamsUI(UserInterface):
     """Concrete implementation of the delete teams UI using User_Interface abstract class"""
 
     # Define the __init__ method
-    def __init__(self):
-        # Create a team_opeartion object using TeamOperations class
-        self.team_opeartion = TeamOperations()
+    def __init__(self, team_objects):
+        # Create a team_operation object using TeamOperations class
+        self.team_operation = TeamOperations(team_objects)
 
     def get_user_input(self):
         """Get the team ID from the user for delete a team"""
         # Infinite while loop to get the correct team ID for delete
         while True:
+            # Check whether team ID existing in the current data
+            # Current all team IDs
+            current_team_IDs = self.team_operation.get_all_teams()[3]
+            print(f"***Current Team ID List : {current_team_IDs}")
             # Get the team ID from the user
             team_id = input("Enter the team ID that you need to Delete : ")
 
@@ -21,12 +25,8 @@ class DeleteTeamsUI(UserInterface):
             if not team_id.isnumeric():
                 print("Please Enter the Valid Team ID!!!!!")
             else:
-                # Check whether team ID existing in the current data
-                # Current all team IDs
-                current_team_IDs = self.team_opeartion.get_all_teams()[3]
                 if int(team_id) not in current_team_IDs:
                     print("Team ID Not Found!!!!!")
-                    print(f"***Current Team ID List : {current_team_IDs}")
                 else:
                     # Delete the team from the data
                     # Ask the confirmation
@@ -41,11 +41,11 @@ class DeleteTeamsUI(UserInterface):
                             print("Please Select A Valid Option!!!!!")
                         else:
                             if confirm_input == 1:
-                                self.team_opeartion.delete_team(int(team_id))
-                                break
+                                team_index = self.team_operation.delete_team(int(team_id))
+                                return team_index
                             else:
                                 print(f"Team ID : {team_id} Deletion Discard!!!!!")
-                                break
+                                return None
                     except ValueError:
                         print("Please Select A Valid Option!!!!!")
 
@@ -59,8 +59,8 @@ class DeleteTeamsUI(UserInterface):
     def handle_options(self):
         # Display the update team UI
         self.display_UI()
-        user_input = self.get_user_input()
-
+        team_index = self.get_user_input()
+        return team_index
 
     def __str__(self):
         """string representation of the DeleteTeamsUI class"""

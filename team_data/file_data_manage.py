@@ -121,7 +121,7 @@ class HockeyTeamDataManage(DataManage):
                     json.dump(new_data_list, file, indent=4)
                     # Remove any leftover data
                     file.truncate()
-                    # Print the successful saved message
+                    # Print the successful deleted message
                     print(f"Team ID: {team_id} Successfully Deleted!********************")
                 else:
                     # If Team ID is not exist in the current data, show the warning messages
