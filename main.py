@@ -4,6 +4,7 @@ from user_interface.create_teams_ui import CreateTeamsUI
 from user_interface.update_teams_ui import UpdateTeamsUI
 from user_interface.get_teams_data_ui import GetTeamsDataUI
 from  user_interface.delete_teams_ui import DeleteTeamsUI
+from team_data.file_data_manage import TxtFileDataManage
 
 # Define the MenuSystem class
 class MenuSystem:
@@ -73,14 +74,22 @@ class MenuSystem:
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 
-        # If user select the option for exit the programme
+        # If user select the option to upload the current data in to a text file
+        if int(self.menu_choice) == 8:
+            # Clear the current terminal screen
+            self.main_menu.clear_terminal()
+            # Create upload_data object using TxtFileDataManage class
+            self.upload_data = TxtFileDataManage(self.team_object_list)
+            # Call the save_data() function
+            self.upload_data.save_data([])
+            # Return back to main menu
+            self.main_menu.back_to_main_menu()
+
+         # If user select the option for exit the programme
         if int(self.menu_choice) == 10:
             self.main_menu.clear_terminal()
             # Exit the running programme
             sys.exit(0)
-
-
-
 
 if __name__ == "__main__":
     # Create a menu_system object using MenuSystem class

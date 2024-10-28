@@ -2,7 +2,7 @@ import json
 import os
 from team_data.data_manage import DataManage
 
-class TemporaryTeamDataManage:
+class TemporaryTeamDataManage(DataManage):
     """Concrete implementation of the hockey team data manage temporary using DataManage abstract class"""
 
     # Define in the __init__ method
@@ -96,6 +96,10 @@ class TemporaryTeamDataManage:
             merge_team_ID = team_ID_text_file + team_ID_objects
             # Get the last team ID and sum with 1
             return merge_team_ID[-1] + 1
+
+    def save_data(self, team_data):
+        """Save data in the file"""
+        pass
 
     def __str__(self):
         """String representation of the TemporaryTeamDataManage class"""

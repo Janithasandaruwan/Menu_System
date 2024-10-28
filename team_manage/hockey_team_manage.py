@@ -2,7 +2,7 @@ import json
 import os
 from team_manage.hockey_team import HockeyTeam
 from team_manage.team_manager import TeamManager
-from team_data.file_data_manage import HockeyTeamDataManage
+from team_data.file_data_manage import TxtFileDataManage
 from team_data.temporary_data_mange import TemporaryTeamDataManage
 
 class TeamOperations(TeamManager):

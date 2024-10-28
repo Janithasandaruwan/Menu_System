@@ -2,13 +2,15 @@ import json
 import os
 from team_data.data_manage import DataManage
 
-class HockeyTeamDataManage(DataManage):
+class TxtFileDataManage(DataManage):
     """Concrete implementation of the hockey team data manage using FileManage abstract class"""
 
     # Define in the __init__ method
-    def __init__(self):
+    def __init__(self, team_objects):
         # File path for store hockey team data
         self.__file_name = "team_data/hockey_team_data.txt"
+        # Current Team objects
+        self.team_objects = team_objects
 
     # Function for create a file with an empty list if it doesn't exist in the path
     def create_data_file(self):
@@ -16,6 +18,27 @@ class HockeyTeamDataManage(DataManage):
             with open(self.__file_name, 'w') as file:
                 # Initialize with an empty list
                 json.dump([], file)
+
+    # Function for loop through the team objects list and create a team data list of dict
+    def create_team_data_list(self):
+        # List for get all current data
+        loaded_data = []
+        # Loop through the team object and create team data dictionary using object getter methods
+        for data in self.team_objects:
+            data_dict = {
+                "Team ID": data.team_id,
+                "Registered Date": f"{data.date_created}",
+                "Team Name": f"{data.team_name}",
+                "Team Type": f"{data.team_type}",
+                "Total Players": f"{data.total_players}",
+                "Total Fee": f"{data.total_fee}",
+                "Fee Paid Status": f"{data.fee_paid}",
+                "Cancellation Date": f"{data.cancelled_date}",
+            }
+            # Append dict data to the loaded_data list
+            loaded_data.append(data_dict)
+        # Return the data list
+        return loaded_data
 
     def read_data(self):
         """Read data in the file"""
@@ -44,15 +67,15 @@ class HockeyTeamDataManage(DataManage):
         # Saving data to a .txt file using JSON
         # Handling the errors when encountering the data saving
         try:
-            # Call the create the file function if path doesn't exist the data txt file
-            self.create_data_file()
+            # Call the create_team_data_list() to get the team data
+            team_data = self.create_team_data_list()
 
             # Open the .txt file in read and write mode
             with open(self.__file_name, "r+") as file:
                 # Read current data list as JSON
                 current_data = json.load(file)
                 # Append team data to the current data
-                current_data.append(team_data)
+                current_data = current_data + team_data
                 # Go back to the beginning of the file
                 file.seek(0)
                 # Serialize and save data as JSON (with indentation for readability)
@@ -60,75 +83,18 @@ class HockeyTeamDataManage(DataManage):
                 # Remove any leftover data
                 file.truncate()
             # Print the successful saved message
-            print("Data Successfully Saved!********************")
+            print("Data Successfully Upload To Text File!!!!!")
         except Exception as e:
             # Print error message and the warning
             print(f"Error occurred while saving data###########\nError : {e}")
 
     def update_data(self, team_id, update_data):
         """Update data in the file"""
-        # Handling the errors when encountering the data updating
-        try:
-            # Call the create the file function if path doesn't exist the data txt file
-            self.create_data_file()
-
-            # Open the .txt file in read and write mode
-            with open(self.__file_name, "r+") as file:
-                # Read current data list as JSON
-                current_data = json.load(file)
-                # Check whether Team ID is exist in current data list using any function
-                if any(item["Team ID"] ==  team_id for item in current_data):
-                    # Loop through the current data and update with updated data
-                    for team_data in current_data:
-                        # Find the item that need to be updated
-                        if team_data['Team ID'] == team_id:
-                            # Update the data with new data and break the loop
-                            team_data.update(update_data)
-                            break
-                    # Go back to the beginning of the file
-                    file.seek(0)
-                    # Serialize and save data as JSON (with indentation for readability)
-                    json.dump(current_data, file, indent=4)
-                    # Remove any leftover data
-                    file.truncate()
-                    # Print the successful updated message
-                    print(f"Team ID: {team_id} Successfully Updated!********************")
-                else:
-                    # If Team ID is not exist in the current data, show the warning messages
-                    print(f"Team ID: {team_id} not found!######################")
-        except Exception as e:
-            # Print error message and the warning
-            print(f"Error occurred while updating data###########\nError : {e}")
+        pass
 
     def delete_data(self, team_id):
         """Delete data in the file"""
-        # Handling the errors when encountering the data removing
-        try:
-            # Call the create the file function if path doesn't exist the data txt file
-            self.create_data_file()
-
-            # Open the .txt file in read and write mode
-            with open(self.__file_name, "r+") as file:
-                # Read current data list as JSON
-                current_data = json.load(file)
-                # Check whether Team ID is exist in current data list using any function
-                if any(item["Team ID"] ==  team_id for item in current_data):
-                    # Recreate the new data list without deleted item
-                    new_data_list = [item for item in current_data if item['Team ID'] != team_id]
-                    # Go back to the beginning of the file
-                    file.seek(0)
-                    # Serialize and save data as JSON (with indentation for readability)
-                    json.dump(new_data_list, file, indent=4)
-                    # Remove any leftover data
-                    file.truncate()
-                    # Print the successful deleted message
-                    print(f"Team ID: {team_id} Successfully Deleted!********************")
-                else:
-                    # If Team ID is not exist in the current data, show the warning messages
-                    print(f"Team ID: {team_id} not found!######################")
-        except Exception as e:
-            # Print error message and the warning
-            print(f"Error occurred while deleting data###########\nError : {e}")
+        pass
 
     def get_next_team_ID(self):
         """Read all team IDs in the existing data and return team ID for next new team creation"""
@@ -148,7 +114,7 @@ class HockeyTeamDataManage(DataManage):
 
 
 if __name__ == "__main__":
-    hockey_team_data = HockeyTeamDataManage()
-    print(hockey_team_data.update_data(1, {"Team Name": "Janitha", 'Team Type': "Mix", "Total PLayers": 40}))
-    print(hockey_team_data.get_next_team_ID())
+    hockey_team_data = TxtFileDataManage()
+    #print(hockey_team_data.update_data(1, {"Team Name": "Janitha", 'Team Type': "Mix", "Total PLayers": 40}))
+    #print(hockey_team_data.get_next_team_ID())
 

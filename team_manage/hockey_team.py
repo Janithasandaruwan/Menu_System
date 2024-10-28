@@ -1,5 +1,5 @@
 from datetime import datetime
-from team_data.file_data_manage import HockeyTeamDataManage
+from team_data.file_data_manage import TxtFileDataManage
 
 class HockeyTeam:
     """Class for hockey team and its private instance"""
