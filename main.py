@@ -81,13 +81,13 @@ class MenuSystem:
             # Clear the current terminal screen
             self.main_menu.clear_terminal()
             # Create upload_data object using TxtFileDataManage class
-            self.upload_data = TxtFileDataManage(self.team_object_list, False)
+            self.upload_data = TxtFileDataManage(self.team_object_list, self.data_restored)
             # Call the save_data() function
             self.upload_data.save_data()
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 
-        # If user select the option to download the data from text file to current object list
+        # If user select the option to restore the data from text file to current object list
         if int(self.menu_choice) == 9:
             # Clear the current terminal screen
             self.main_menu.clear_terminal()
@@ -95,6 +95,14 @@ class MenuSystem:
             self.download_data = TxtFileDataManage(self.team_object_list, False)
             # Call the create_team_obj_list() function
             team_obj_data = self.download_data.create_team_obj_list()
+            # Get the team IDs in team objects list from the text file
+            team_obj_ID = [obj.team_id for obj in team_obj_data]
+            # Loop through the team ID object list
+            for idx, obj in enumerate(self.team_object_list):
+                if obj.team_id in team_obj_ID:
+                    # Remove that team object from the list
+                    self.team_object_list.pop(idx)
+
             # Combine team_object_list and team data list in text file
             self.team_object_list = self.team_object_list + team_obj_data
             # Set data restored True
