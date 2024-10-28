@@ -5,7 +5,7 @@
         "Team Name": "Team_1",
         "Team Type": "Boys",
         "Total Players": "1",
-        "Total Fee": "100",
+        "Total Fee": "100 SEK",
         "Fee Paid Status": "True",
         "Cancellation Date": "None"
     }

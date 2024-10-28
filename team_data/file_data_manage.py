@@ -1,6 +1,7 @@
 import json
 import os
 from team_data.data_manage import DataManage
+from team_manage.hockey_team import HockeyTeam
 
 class TxtFileDataManage(DataManage):
     """Concrete implementation of the hockey team data manage using FileManage abstract class"""
@@ -31,12 +32,37 @@ class TxtFileDataManage(DataManage):
                 "Team Name": f"{data.team_name}",
                 "Team Type": f"{data.team_type}",
                 "Total Players": f"{data.total_players}",
-                "Total Fee": f"{data.total_fee}",
+                "Total Fee": f"{data.total_fee} SEK",
                 "Fee Paid Status": f"{data.fee_paid}",
                 "Cancellation Date": f"{data.cancelled_date}",
             }
             # Append dict data to the loaded_data list
             loaded_data.append(data_dict)
+        # Return the data list
+        return loaded_data
+
+    # Function for loop through the dict data list in text file and create data object list
+    def create_team_obj_list(self):
+        # Get all the data in the text file
+        file_data = self.read_data()
+        # List for store all the team objects
+        loaded_data = []
+        # Loop through the team data list and create Team objects
+        for data in file_data:
+            # Crate team object using HockeyTeam class
+            team = HockeyTeam(
+                team_ID = data["Team ID"],
+                date_created = data["Registered Date"],
+                team_name = data["Team Name"],
+                team_type = data["Team Type"],
+                total_players = data["Total Players"],
+                fee_paid = data["Fee Paid Status"],
+                cancelled_date = data["Cancellation Date"]
+            )
+            # Append team data objects to the loaded_data list
+            loaded_data.append(team)
+        # Display successful message
+        print("Data Successfully Restored!!!!!")
         # Return the data list
         return loaded_data
 

@@ -39,7 +39,7 @@ class MainMenuUI(UserInterface):
                 # Get the user input for main menu option
                 choice = int(input("\nSelect Your Option From Above Menu: "))
                 # If option number is less than 9
-                if choice < 9:
+                if choice < 10:
                     # Convert user selected option same way as main_menu_options dict keys
                     option = "0" + str(choice)
                 else:

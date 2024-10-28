@@ -1,5 +1,4 @@
 from datetime import datetime
-from team_data.file_data_manage import TxtFileDataManage
 
 class HockeyTeam:
     """Class for hockey team and its private instance"""
@@ -7,21 +6,26 @@ class HockeyTeam:
     # Define the __init__ method, the class constructor
     def __init__(self,
                  team_ID : int,
+                 date_created : None,
                  team_name : str,
                  team_type : str = "Boys",
                  total_players : int = 0,
+                 total_fee = None,
                  fee_paid : bool = False,
                  cancelled_date: str = None,
                  ):
         self.__team_id = team_ID # Team id
-        self.__date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # The date that team registered
+        # The date that team registered
+        # Get the current date when the team object created newly
+        # Get the existing date when the data restoring from the file
+        self.__date_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S") if date_created is None else date_created
         self.__team_name = team_name # Team name
         self.__team_type = team_type # Team type
         self.__total_players = total_players # Total number of players
         self.__fee_paid = fee_paid # Boolean for fee paid or not
         self.__cancelled_date = cancelled_date # Cancelled date of the team participation
         # Total fee calculated from the total number of players, and 100 SEK for one player
-        self.__total_fee = 100 * total_players  # Total fee for participate in the event
+        self.__total_fee = 100 * int(total_players)  # Total fee for participate in the event
 
     # Define the getter method for team ID
     @property
