@@ -4,8 +4,8 @@
         "Registered Date": "2024-10-28 01:29:34",
         "Team Name": "Team_1",
         "Team Type": "Boys",
-        "Total Players": "1",
-        "Total Fee": "100 SEK",
+        "Total Players": "10",
+        "Total Fee": "1000 SEK",
         "Fee Paid Status": "True",
         "Cancellation Date": "None"
     }

@@ -10,7 +10,6 @@ class HockeyTeam:
                  team_name : str,
                  team_type : str = "Boys",
                  total_players : int = 0,
-                 total_fee = None,
                  fee_paid : bool = False,
                  cancelled_date: str = None,
                  ):

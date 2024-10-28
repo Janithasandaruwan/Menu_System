@@ -1,6 +1,7 @@
 import json
 import os
 from team_data.data_manage import DataManage
+from team_data.file_data_manage import TxtFileDataManage
 
 class TemporaryTeamDataManage(DataManage):
     """Concrete implementation of the hockey team data manage temporary using DataManage abstract class"""
@@ -81,21 +82,29 @@ class TemporaryTeamDataManage(DataManage):
 
     def get_next_team_ID(self):
         """Read all team IDs in the existing data and return team ID for next new team creation"""
-        # Call the read_data() function to get all the current data in the text file
-        current_data = self.read_data()
+        # Call the get_all_team_ID() function to get all the current data in the text file
+        text_file_id_list = self.get_all_team_ID()
         # Check current data list in the text file and team object list is empty
-        if len(current_data) == 0 and len(self.team_objects) == 0:
+        if len(text_file_id_list) == 0 and len(self.team_objects) == 0:
             # If the data list empty, the next Team ID should be 1
             return 1
         else:
-            # Get all team IDs in text file
-            team_ID_text_file = [data["Team ID"] for data in current_data]
             # Get all team IDs in team objects
             team_ID_objects = [obj.team_id for obj in self.team_objects]
             # Merge list of team IDs and get the last team ID
-            merge_team_ID = team_ID_text_file + team_ID_objects
+            merge_team_ID = text_file_id_list + team_ID_objects
+            # Sort the list
+            sorted_list = sorted(merge_team_ID)
             # Get the last team ID and sum with 1
-            return merge_team_ID[-1] + 1
+            return sorted_list[-1] + 1
+
+    def get_all_team_ID(self):
+        """Read all team IDs in the existing data text file"""
+        # Create a file_operation object for get all team ID in the text file
+        self.file_operation = TxtFileDataManage([], False)
+        # Call the get_all_team_ID() function to get all the current data in the text file
+        current_data = self.file_operation.get_all_team_ID()
+        return current_data
 
     def save_data(self, team_data):
         """Save data in the file"""

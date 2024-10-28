@@ -7,11 +7,13 @@ class TxtFileDataManage(DataManage):
     """Concrete implementation of the hockey team data manage using FileManage abstract class"""
 
     # Define in the __init__ method
-    def __init__(self, team_objects):
+    def __init__(self, team_objects : list, data_restored : bool):
         # File path for store hockey team data
         self.__file_name = "team_data/hockey_team_data.txt"
         # Current Team objects
         self.team_objects = team_objects
+        # Check data restored from the text file
+        self.data_restored = data_restored
 
     # Function for create a file with an empty list if it doesn't exist in the path
     def create_data_file(self):
@@ -88,7 +90,7 @@ class TxtFileDataManage(DataManage):
             # Print error message and the warning
             print(f"Error occurred while reading data###########\nError : {e}")
 
-    def save_data(self, team_data):
+    def save_data(self):
         """Save data in the hockey_team_data.txt file"""
         # Saving data to a .txt file using JSON
         # Handling the errors when encountering the data saving
@@ -100,14 +102,23 @@ class TxtFileDataManage(DataManage):
             with open(self.__file_name, "r+") as file:
                 # Read current data list as JSON
                 current_data = json.load(file)
-                # Append team data to the current data
-                current_data = current_data + team_data
-                # Go back to the beginning of the file
-                file.seek(0)
-                # Serialize and save data as JSON (with indentation for readability)
-                json.dump(current_data, file, indent=4)
-                # Remove any leftover data
-                file.truncate()
+                # If user data restored from the text file
+                if self.data_restored == True:
+                    # Go back to the beginning of the file
+                    file.seek(0)
+                    # Serialize and save data as JSON (with indentation for readability)
+                    json.dump(team_data, file, indent=4)
+                    # Remove any leftover data
+                    file.truncate()
+                else:
+                    # Append team data to the current data
+                    current_data = current_data + team_data
+                    # Go back to the beginning of the file
+                    file.seek(0)
+                    # Serialize and save data as JSON (with indentation for readability)
+                    json.dump(current_data, file, indent=4)
+                    # Remove any leftover data
+                    file.truncate()
             # Print the successful saved message
             print("Data Successfully Upload To Text File!!!!!")
         except Exception as e:
@@ -122,17 +133,18 @@ class TxtFileDataManage(DataManage):
         """Delete data in the file"""
         pass
 
-    def get_next_team_ID(self):
-        """Read all team IDs in the existing data and return team ID for next new team creation"""
+    def get_all_team_ID(self):
+        """Read all team IDs in the existing data text file"""
         # Call the read_data() function to get all the current data
         current_data = self.read_data()
-        # Check current data list is not empty and get the last team ID
-        if len(current_data) == 0:
-            # If the data list empty, the next Team ID should be 1
-            return 1
+        # Check data list in the text file is not empty
+        if len(current_data) != 0:
+            # Create ID list in the text file and return
+            ID_list = [data["Team ID"] for data in current_data]
+            return ID_list
         else:
-            # Get the last team ID and sum with 1
-            return current_data[-1]["Team ID"] + 1
+            # If data is empty return empty list
+            return []
 
     def __str__(self):
         """String representation of the HockeyTeamDataManage class"""
@@ -140,7 +152,7 @@ class TxtFileDataManage(DataManage):
 
 
 if __name__ == "__main__":
-    hockey_team_data = TxtFileDataManage()
+    hockey_team_data = TxtFileDataManage([], False)
     #print(hockey_team_data.update_data(1, {"Team Name": "Janitha", 'Team Type': "Mix", "Total PLayers": 40}))
     #print(hockey_team_data.get_next_team_ID())
 

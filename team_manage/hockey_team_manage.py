@@ -18,7 +18,13 @@ class TeamOperations(TeamManager):
         # Call get_next_team_ID() function for get next Team ID
         team_id = self.data_operation.get_next_team_ID()
         # Define the team object from HockeyTeam class with user input data
-        team_obj = HockeyTeam(team_id, team_name, team_type, total_players, fee_paid)
+        team_obj = HockeyTeam(team_ID = team_id,
+                              date_created = None,
+                              team_name = team_name,
+                              team_type= team_type,
+                              total_players = total_players,
+                              fee_paid = fee_paid,
+                              cancelled_date = None)
         # Return team object
         return team_obj
 

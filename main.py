@@ -13,6 +13,8 @@ class MenuSystem:
     def __init__(self):
         # Define a python list to save team data object temporary
         self.team_object_list = []
+        # Check user restored data in the text file
+        self.data_restored = False
 
     # Define the main function
     def main(self):
@@ -79,9 +81,9 @@ class MenuSystem:
             # Clear the current terminal screen
             self.main_menu.clear_terminal()
             # Create upload_data object using TxtFileDataManage class
-            self.upload_data = TxtFileDataManage(self.team_object_list)
+            self.upload_data = TxtFileDataManage(self.team_object_list, False)
             # Call the save_data() function
-            self.upload_data.save_data([])
+            self.upload_data.save_data()
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 
@@ -90,12 +92,13 @@ class MenuSystem:
             # Clear the current terminal screen
             self.main_menu.clear_terminal()
             # Create download_data object using TxtFileDataManage class
-            self.download_data = TxtFileDataManage(self.team_object_list)
+            self.download_data = TxtFileDataManage(self.team_object_list, False)
             # Call the create_team_obj_list() function
             team_obj_data = self.download_data.create_team_obj_list()
             # Combine team_object_list and team data list in text file
             self.team_object_list = self.team_object_list + team_obj_data
-            print(self.team_object_list)
+            # Set data restored True
+            self.data_restored = True
             # Return back to main menu
             self.main_menu.back_to_main_menu()
 

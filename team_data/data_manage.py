@@ -24,7 +24,7 @@ class DataManage(ABC):
         pass
 
     @abstractmethod
-    def get_next_team_ID(self):
-        """Read all team IDs in the existing data and return team ID for next new team creation"""
+    def get_all_team_ID(self):
+        """Read all team IDs in the existing data text file"""
         pass
 
